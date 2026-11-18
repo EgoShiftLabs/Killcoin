@@ -65,6 +65,24 @@
 .agent-submission .submission-rules{margin:25px 0 0;padding-top:18px;border-top:1px solid #313636;font:600 9px/1.9 var(--sans);letter-spacing:.1em;color:#737a78}
 @media(max-width:600px){.agent-submission{margin-top:25px}.agent-submission>p:not(.submission-rules){font-size:13px}.submission-actions{gap:16px}}
 
+
+/* BURN PROTOCOL — restrained noir terminal treatment */
+.burn-protocol{border:1px solid rgba(158,167,162,.24);border-left:2px solid #723134;background:rgba(10,13,14,.72);padding:18px 19px 17px;margin:18px 0 19px;position:relative}
+.burn-kicker{display:flex;align-items:center;gap:9px;font:700 9px/1.4 var(--sans);letter-spacing:.15em;color:#a2aaa5}
+.burn-signal{width:6px;height:6px;flex:none;border-radius:50%;background:#934149;box-shadow:0 0 8px rgba(147,65,73,.24)}
+.burn-protocol strong{display:block;font:400 clamp(19px,2.2vw,25px)/1.25 var(--serif);letter-spacing:.055em;color:#e7e8e3;margin:11px 0 6px}
+.burn-protocol p{font:500 10px/1.8 var(--sans);letter-spacing:.08em;color:#9ca39f;margin:0;max-width:440px}
+.burn-status{position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;background:#0e1514;border:1px solid rgba(167,174,166,.4);border-top:2px solid #874044;padding:18px 19px;margin:19px 0 5px}
+.burn-status[hidden],.burn-fallback[hidden]{display:none!important}
+.burn-stamp{font:400 25px/1 var(--serif);color:#a95a60;flex:none}
+.burn-status strong{display:block;font:700 11px/1.4 var(--sans);letter-spacing:.16em;color:#e4ebe4;margin:0 0 5px}
+.burn-status p{font:500 10px/1.65 var(--sans);letter-spacing:.07em;color:#aeb7b0;margin:0}
+.burn-status.burn-flash:after{content:"";pointer-events:none;position:absolute;inset:0 auto 0 0;width:2px;background:#9f5055;box-shadow:0 0 22px 3px rgba(159,80,85,.5);animation:burnScan 1.15s ease-out both}
+.burn-fallback{display:inline-flex;margin:12px 0 0;padding:12px 14px;color:#e0e4dd!important;border:1px solid #646d67;font:700 10px/1.4 var(--sans);letter-spacing:.12em;text-decoration:none}
+.burn-fallback:hover,.burn-fallback:focus-visible{border-color:#a59a95;background:#181b1b}
+@keyframes burnScan{0%{left:0;opacity:0}12%{opacity:1}80%{opacity:.85}100%{left:100%;opacity:0}}
+@media(prefers-reduced-motion:reduce){.burn-status.burn-flash:after{animation:none;display:none}}
+
 </style>
   
 </head>
@@ -293,8 +311,18 @@
           <textarea required id="targetCrime" name="crime" maxlength="125" rows="3" placeholder="e.g. Promised the moon. Couldn't afford the parking meter."></textarea>
           <label for="agentCodename">AGENT CODENAME <span>(OPTIONAL)</span></label>
           <div class="codename-row"><input id="agentCodename" name="codename" maxlength="36" placeholder="Generate a classified callsign" autocomplete="off"><button type="button" id="generateCodename" aria-label="Generate a random agent codename">GENERATE ↻</button></div>
-          <button class="button button-primary submit-button" type="submit">CREATE X NOMINATION DRAFT <span aria-hidden="true">↗</span></button>
-          <p class="form-disclaimer">Opens a draft on X. Nothing is saved or submitted to this website. You control what you publish. Keep submissions focused on tokens and market narratives, never individuals.</p>
+          <div class="burn-protocol" aria-label="Burn Protocol information">
+            <span class="burn-kicker"><span class="burn-signal" aria-hidden="true"></span> SECURITY PROTOCOL 07 / ACTIVE</span>
+            <strong>THE BURN PROTOCOL</strong>
+            <p>TRANSMIT THE DOSSIER. THIS TERMINAL CLEARS ITS LOCAL RECORD. THE AGENT CONTROLS THE PUBLIC TRANSMISSION.</p>
+          </div>
+          <button class="button button-primary submit-button" type="submit">TRANSMIT NOMINATION TO X <span aria-hidden="true">↗</span></button>
+          <div class="burn-status" id="burnStatus" role="status" aria-live="polite" aria-atomic="true" hidden>
+            <span class="burn-stamp" aria-hidden="true">✕</span>
+            <div><strong id="burnTitle">TRANSMISSION INITIATED</strong><p id="burnMessage">LOCAL DOSSIER PURGED. X DRAFT OPENED FOR AGENT APPROVAL.</p></div>
+          </div>
+          <a class="burn-fallback" href="https://x.com/hitlist187" id="xDraftFallback" target="_blank" rel="noopener noreferrer" hidden>OPEN THE X DRAFT MANUALLY ↗</a>
+          <p class="form-disclaimer">This form clears after opening your X draft. Nothing is posted automatically or saved as an Agency nomination. Keep submissions about crypto projects and narratives, never individuals.</p>
         </form>
       </div>
     </section>
@@ -383,9 +411,46 @@ nomination.addEventListener('submit',event=>{
  const fixed=[...header,chargeLabel,...(agent?[agent]:[]),footer].join('\n');
  const crimeBudget=Math.max(1,260-fixed.length);
  const payload=[...header,chargeLabel+crime.slice(0,crimeBudget),...(agent?[agent]:[]),footer].join('\n');
- // X intent opens a share draft: no automatic posting or website database submission.
+ // Opens a draft on X; the user must explicitly approve any publication.
  const link='https://x.com/intent/tweet?text='+encodeURIComponent(payload);
- const post=document.createElement('a');post.href=link;post.target='_blank';post.rel='noopener noreferrer';document.body.appendChild(post);post.click();post.remove();
+ const status=document.getElementById('burnStatus');
+ const statusTitle=document.getElementById('burnTitle');
+ const statusMessage=document.getElementById('burnMessage');
+ const fallback=document.getElementById('xDraftFallback');
+ const purgeLocalDossier=()=>{
+  nomination.reset();
+  statusTitle.textContent='TRANSMISSION INITIATED';
+  statusMessage.textContent='LOCAL DOSSIER PURGED. X DRAFT OPENED FOR AGENT APPROVAL.';
+  fallback.hidden=true;
+  status.hidden=false;
+  status.classList.remove('burn-flash');
+  void status.offsetWidth;
+  status.classList.add('burn-flash');
+ };
+ // A real user-triggered window.open enables detection of blocked popups.
+ const draftWindow=window.open(link,'_blank');
+ if(draftWindow){
+  try{draftWindow.opener=null;}catch(_e){}
+  purgeLocalDossier();
+ }else{
+  // Keep the nomination intact until the agent activates the fallback.
+  fallback.href=link;
+  fallback.hidden=false;
+  statusTitle.textContent='TRANSMISSION READY';
+  statusMessage.textContent='X DID NOT OPEN AUTOMATICALLY. USE THE LINK BELOW TO OPEN YOUR DRAFT.';
+  status.hidden=false;
+ }
+});
+document.getElementById('xDraftFallback').addEventListener('click',()=>{
+ const nomination=document.getElementById('nominationForm');
+ nomination.reset();
+ const status=document.getElementById('burnStatus');
+ document.getElementById('burnTitle').textContent='TRANSMISSION INITIATED';
+ document.getElementById('burnMessage').textContent='LOCAL DOSSIER PURGED. X DRAFT REQUESTED FOR AGENT APPROVAL.';
+ status.classList.remove('burn-flash');
+ void status.offsetWidth;
+ status.classList.add('burn-flash');
+ document.getElementById('xDraftFallback').hidden=true;
 });
 
 </script>
