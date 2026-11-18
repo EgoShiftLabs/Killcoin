@@ -1,6 +1,14 @@
 name: HITLIST Agency registry sync
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "agency/**"
+      - "data/approved-nominees.json"
+      - "scripts/sync-registry.mjs"
+      - "tests/registry.test.mjs"
+      - ".github/workflows/hitlist-registry-sync.yml"
   schedule:
     - cron: "17 * * * *"
   workflow_dispatch:
