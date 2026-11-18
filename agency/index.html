@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#08090b"><meta name="description" content="KILL COIN's public Agency Registry. Only selected, independently reviewed project dossiers appear here.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<title>PUBLIC CASE REGISTRY | KILL COIN</title>
+<link rel="stylesheet" href="./registry.css">
+<script type="module" src="./registry.js"></script>
+</head><body>
+<a class="skip" href="#main">Skip to registry</a>
+<header class="topbar">
+  <a class="wordmark" href="../"><span class="seal" aria-hidden="true">✕</span><span>KILL COIN <small>HITLIST AGENCY</small></span></a>
+  <div class="topright"><span class="status-dot"></span> PUBLIC RECORDS <a class="back" href="../">RETURN TO HQ ↗</a></div>
+</header>
+<main id="main" tabindex="-1">
+  <section class="hero">
+    <div class="eyebrow">HITLIST AGENCY / INTELLIGENCE DESK / PUBLIC VERSION 01</div>
+    <h1>THE CASE <em>REGISTRY.</em></h1>
+    <p class="deck">Projects, contracts, and failed narratives—documented in one place. The Agency publishes only selected submissions after review. The public registry is distinct from the private nomination queue.</p>
+    <div class="pills"><span>PUBLIC CASE FILES</span><span>HUMAN-REVIEWED</span><span>NO WALLET REQUIRED</span></div>
+    <div class="hero-mark" aria-hidden="true">⌖</div>
+  </section>
+  <section class="notice" role="note"><strong>FIELD NOTICE / READ BEFORE DEPLOYMENT</strong><p>Agency classifications are editorial and satirical, not legal or regulatory findings. A nomination alone does not establish misconduct. Follow the cited evidence and make your own assessment. This is not investment advice.</p></section>
+  <section class="toolbar" aria-label="Filter agency cases">
+    <div class="toolbar-head"><div><span class="eyebrow">REGISTRY / SEARCHABLE</span><h2>PUBLIC DOSSIERS</h2></div><div class="counters"><strong id="caseCount">—</strong><small>CASES ON RECORD</small></div></div>
+    <div class="filter-row"><label class="search" for="caseSearch"><span aria-hidden="true">⌕</span><input id="caseSearch" type="search" placeholder="Search project, ticker, contract, network…" autocomplete="off"></label>
+    <label class="sr" for="caseFilter">Case status</label><select id="caseFilter"><option value="all">ALL STATUSES</option><option value="ACTIVE">ACTIVE CASES</option><option value="UNDER SURVEILLANCE">UNDER SURVEILLANCE</option><option value="ARCHIVED">ARCHIVED</option></select></div>
+  </section>
+  <section aria-live="polite" aria-atomic="true" id="registryStatus" class="empty" hidden></section>
+  <section id="caseList" class="case-list" aria-label="Published case dossiers"></section>
+  <section class="afterword"><div><span class="eyebrow">HAVE SOMETHING WORTH INVESTIGATING?</span><h2>FILE A NOMINATION.</h2><p>Submit a token or crypto narrative for editorial review. The Agency decides whether a dossier belongs in the public registry.</p></div><a href="../#nominate" class="action">OPEN NOMINATION DESK ↗</a></section>
+</main>
+<footer><span>KILL COIN × HITLIST AGENCY · INDEPENDENT CASE RECORDS</span><span>YOU NOMINATE. WE INVESTIGATE.</span></footer>
+</body></html>
