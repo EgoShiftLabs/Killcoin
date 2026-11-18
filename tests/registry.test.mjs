@@ -27,12 +27,12 @@ test("zero approved records is valid but unapproved never appears",()=>{
 });
 
 test("reviewed nomination counts are retained without personal data",()=>{
- const extended=header.replace("publish\\n","publish,nomination_count\\n");
- const cases=buildRegistry(extended+'KC-010,Project A,AAA,Solana,abc123,Observed behavior,https://example.org/a,ACTIVE,2026-11-18,YES,12\\n');
+ const extended=header.replace("publish\n","publish,nomination_count\n");
+ const cases=buildRegistry(extended+'KC-010,Project A,AAA,Solana,abc123,Observed behavior,https://example.org/a,ACTIVE,2026-11-18,YES,12\n');
  assert.equal(cases[0].nominationCount,12);
  assert.equal("email" in cases[0],false);
 });
 test("negative or malformed public counts fail validation",()=>{
- const extended=header.replace("publish\\n","publish,nomination_count\\n");
- assert.throws(()=>buildRegistry(extended+'KC-011,Project B,BBB,Solana,abc456,Observed behavior,https://example.org/b,ACTIVE,2026-11-18,YES,-5\\n'),/Invalid nomination_count/);
+ const extended=header.replace("publish\n","publish,nomination_count\n");
+ assert.throws(()=>buildRegistry(extended+'KC-011,Project B,BBB,Solana,abc456,Observed behavior,https://example.org/b,ACTIVE,2026-11-18,YES,-5\n'),/Invalid nomination_count/);
 });
