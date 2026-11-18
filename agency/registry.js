@@ -6,7 +6,7 @@ function validLink(value){try{const u=new URL(value);return ["https:","http:"].i
 function info(parent,label,value){if(!value)return;const row=elm("div","meta-row");row.append(elm("b",null,label+"  "));row.append(document.createTextNode(String(value)));parent.append(row);}
 function render(){
  const term=search.value.trim().toLowerCase(),status=filter.value;
- const match=entries.filter(c=>(status==="all"||c.status===status)&&(!term||[c.target,c.ticker,c.chain,c.contract,c.allegedOffense,c.caseId].join(" ").toLowerCase().includes(term)));
+ const match=entries.filter(c=>(status==="all"||c.status===status)&&(!term||[c.target,c.ticker,c.chain,c.contract,c.allegedOffense,c.caseId].join(" ").toLowerCase().includes(term))).sort((a,b)=>b.nominationCount-a.nominationCount||a.caseId.localeCompare(b.caseId));
  list.replaceChildren();
  message.hidden=match.length>0;
  if(!match.length){message.replaceChildren(elm("strong",null,entries.length?"NO CASES MATCH THE SEARCH.":"NO PUBLIC NOMINEES YET."),elm("p",null,entries.length?"Try a different filter or search term.":"The public registry has not received an approved case. Nominations remain in a separate private review process. No submissions are published automatically."));return;}
@@ -14,7 +14,7 @@ function render(){
   const card=elm("article","case");
   const top=elm("div","case-top");top.append(elm("span",null,"CASE / "+c.caseId),elm("span","state",c.status));card.append(top);
   card.append(elm("h3",null,c.target),elm("div","subtitle",[c.ticker,c.chain].filter(Boolean).join(" · ")),elm("p","charge",c.allegedOffense));
-  const meta=elm("div","meta");info(meta,"CONTRACT",c.contract);info(meta,"PUBLICATION",c.approvedAt);
+  const meta=elm("div","meta");info(meta,"APPROVED NOMINATIONS",String(c.nominationCount));info(meta,"CONTRACT",c.contract);info(meta,"PUBLICATION",c.approvedAt);
   const href=validLink(c.evidenceUrl);if(href){const a=elm("a",null,"VIEW PUBLIC EVIDENCE ↗");a.href=href;a.target="_blank";a.rel="noopener noreferrer nofollow";meta.append(a);}card.append(meta);list.append(card);
  }
 }
@@ -22,7 +22,7 @@ function normalize(c){
  if(!c||typeof c!=="object")return null;
  const o={caseId:String(c.caseId||"").slice(0,60),target:String(c.target||"").slice(0,120),ticker:String(c.ticker||"").slice(0,25),chain:String(c.chain||"").slice(0,40),
  contract:String(c.contract||"").slice(0,150),allegedOffense:String(c.allegedOffense||"").slice(0,700),evidenceUrl:String(c.evidenceUrl||"").slice(0,2048),
- status:String(c.status||"").toUpperCase(),approvedAt:String(c.approvedAt||"").slice(0,40)};
+ status:String(c.status||"").toUpperCase(),approvedAt:String(c.approvedAt||"").slice(0,40),nominationCount:Number.isSafeInteger(c.nominationCount)&&c.nominationCount>=0&&c.nominationCount<=999999?c.nominationCount:0};
  if(!o.target||!o.caseId||!o.allegedOffense||!validLink(o.evidenceUrl)||!["ACTIVE","UNDER SURVEILLANCE","ARCHIVED"].includes(o.status))return null;
  return o;
 }
