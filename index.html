@@ -219,10 +219,16 @@ nomination.addEventListener('submit',event=>{
  if(!nomination.reportValidity())return;
  const target=document.getElementById('targetName').value.trim();const crime=document.getElementById('targetCrime').value.trim();const code=document.getElementById('agentCodename').value.trim();
  if(!target||!crime)return;
- const lines=['📋 KILL COIN / HITLIST NOMINATION','🎯 TARGET: '+target,'⚖️ COMEDY CHARGE: '+crime,code?'🕶️ AGENT: '+code:'','YOU NOMINATE. WE TERMINATE.','@hitlist187'].filter(Boolean);
- const payload=lines.join('\n');
- // X web intent is a genuine share draft, not a form submission or stored vote.
- const link='https://x.com/intent/tweet?text='+encodeURIComponent(payload.slice(0,270));
+ // Reserve space for the Agency handle and both hashtags so long nominations never cut them off.
+ const header=['📋 KILL COIN / HITLIST NOMINATION','🎯 TARGET: '+target.slice(0,55)];
+ const agent=code?'🕶️ AGENT: '+code.slice(0,24):'';
+ const chargeLabel='⚖️ COMEDY CHARGE: ';
+ const footer='YOU NOMINATE. WE TERMINATE.\n@hitlist187 #KillCoin #Hitlist';
+ const fixed=[...header,chargeLabel,...(agent?[agent]:[]),footer].join('\n');
+ const crimeBudget=Math.max(1,260-fixed.length);
+ const payload=[...header,chargeLabel+crime.slice(0,crimeBudget),...(agent?[agent]:[]),footer].join('\n');
+ // X web intent opens a draft, never posts automatically.
+ const link='https://x.com/intent/tweet?text='+encodeURIComponent(payload);
  const post=document.createElement('a');post.href=link;post.target='_blank';post.rel='noopener noreferrer';document.body.appendChild(post);post.click();post.remove();
 });
 
