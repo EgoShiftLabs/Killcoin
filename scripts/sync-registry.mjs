@@ -37,7 +37,12 @@ export function buildRegistry(csv){
   if(clean(raw.publish,10).toUpperCase()!=="YES")continue;
   const c={caseId:clean(raw.case_id,60),target:clean(raw.target,120),ticker:clean(raw.ticker,25),chain:clean(raw.chain,40),
    contract:clean(raw.contract,150),allegedOffense:clean(raw.alleged_offense,700),evidenceUrl:clean(raw.evidence_url,2048),
-   status:clean(raw.case_status,30).toUpperCase(),approvedAt:clean(raw.approved_at,40)};
+   status:clean(raw.case_status,30).toUpperCase(),approvedAt:clean(raw.approved_at,40),nominationCount:0};
+  const rawCount=clean(raw.nomination_count,20);
+  if(rawCount){
+   if(!/^(0|[1-9][0-9]{0,5})$/.test(rawCount))throw Error("Invalid nomination_count at CSV row "+(i+1));
+   c.nominationCount=Number(rawCount);
+  }
   if(!/^[A-Z0-9-]{2,60}$/i.test(c.caseId)||!c.target||!c.allegedOffense||!validHttps(c.evidenceUrl)||!statuses.has(c.status))throw Error("Invalid published case at CSV row "+(i+1)+". Fix the public sheet.");
   if(seen.has(c.caseId.toLowerCase()))throw Error("Duplicate public case_id: "+c.caseId);
   seen.add(c.caseId.toLowerCase());cases.push(c);
