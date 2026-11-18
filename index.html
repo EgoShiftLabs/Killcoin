@@ -83,6 +83,22 @@
 @keyframes burnScan{0%{left:0;opacity:0}12%{opacity:1}80%{opacity:.85}100%{left:100%;opacity:0}}
 @media(prefers-reduced-motion:reduce){.burn-status.burn-flash:after{animation:none;display:none}}
 
+
+/* Agency Contract Registry — clean noir, no extra disclosures */
+.contract-registry{width:min(100%,720px);margin:27px 0 0;padding:16px 18px 13px;border:1px solid rgba(176,182,176,.29);border-left:2px solid #83383d;background:rgba(8,10,11,.83)}
+.contract-registry-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 0 12px;border-bottom:1px solid rgba(183,187,180,.18);font:700 9px/1.4 var(--sans);letter-spacing:.13em;color:#9fa6a1}
+.registry-indicator{display:inline-block;width:6px;height:6px;border-radius:50%;background:#9e4a51;margin-right:6px;vertical-align:middle}
+.contract-registry-main{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:13px 0 0}
+.contract-registry-main strong{display:block;font:400 21px/1.25 var(--serif);letter-spacing:.05em;color:#ebede8}
+.contract-registry-main strong em{font-style:normal;color:#ad565b}
+.contract-registry-main div>span{display:block;color:#858d89;margin-top:6px;font:700 8px/1.6 var(--sans);letter-spacing:.16em}
+.contract-registry-links{display:flex;gap:7px;flex-wrap:wrap}
+.registry-control{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:37px;border:1px solid #666d69;padding:9px 12px;background:#1b201f;color:#e5e9e4;text-decoration:none;cursor:pointer;font:700 9px/1.5 var(--sans);letter-spacing:.12em}
+.registry-control:hover,.registry-control:focus-visible{background:#303735;border-color:#b8c0ba;color:#fff}
+.registry-address{display:block;overflow-wrap:anywhere;user-select:all;margin:0;padding:13px 0 0;color:#d2d9d3;font:500 11px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.registry-feedback{display:block;min-height:0;margin:3px 0 0;font:700 9px/1.5 var(--sans);letter-spacing:.1em;color:#bcc5bc}
+@media(max-width:610px){.contract-registry{margin-top:21px;padding:13px 12px}.contract-registry-main{align-items:flex-start}.contract-registry-links{width:100%}.registry-control{flex:1;text-align:center}.contract-registry-head{font-size:8px}.registry-address{font-size:10px}}
+
 </style>
   
 </head>
@@ -126,6 +142,12 @@
             <a class="button button-primary" href="#nominate">ENTER THE AGENCY <span aria-hidden="true">↗</span></a>
             <a class="button button-quiet" href="https://x.com/i/communities/2033212502868136292" target="_blank" rel="noopener noreferrer"><span class="play-circle" aria-hidden="true">◎</span> JOIN THE X COMMUNITY</a>
           </div>
+          <div class="contract-registry" aria-label="Official KILL COIN contract address">
+            <div class="contract-registry-head"><span><span class="registry-indicator" aria-hidden="true"></span> AGENCY CONTRACT REGISTRY</span><span>DEPLOYMENT / 001</span></div>
+            <div class="contract-registry-main"><div><strong>KILL COIN <em>/</em> $HITLIST</strong><span>OFFICIAL SOLANA CONTRACT</span></div><div class="contract-registry-links"><button type="button" id="copyAgencyCA" class="registry-control" aria-label="Copy official HITLIST contract address">COPY CA <span aria-hidden="true">⧉</span></button><a class="registry-control registry-visit" href="https://pump.fun/coin/D3ijhpc8eVLX6AToUY4jX3sFFm2JwWESFA6nd6u3pump" target="_blank" rel="noopener noreferrer">VIEW ON PUMP.FUN <span aria-hidden="true">↗</span></a></div></div>
+            <code class="registry-address" id="agencyCA">D3ijhpc8eVLX6AToUY4jX3sFFm2JwWESFA6nd6u3pump</code>
+            <span class="registry-feedback" role="status" aria-live="polite" id="agencyCopyFeedback"></span>
+          </div>
           <div class="hero-footnote"><span class="red-tick"></span> YOU NOMINATE. WE TERMINATE. <span class="hero-footnote-sep">/</span> PROFESSIONAL ELITE SERVICES</div>
         </div>
       </div>
@@ -149,7 +171,7 @@
           <p class="section-intro">No complicated roadmap. No corporate buzzwords. Four steps. One gloriously unnecessary agency.</p>
         </div>
         <div class="steps">
-          <article class="step reveal"><span class="step-num">01</span><div class="step-icon" aria-hidden="true">◈</div><h3>BUY KILL COIN</h3><p>Your membership in the madness begins with KILL COIN. The token link appears when the mint is confirmed.</p><span class="step-bottom">JOIN THE AGENCY <span aria-hidden="true">↗</span></span></article>
+          <article class="step reveal"><span class="step-num">01</span><div class="step-icon" aria-hidden="true">◈</div><h3>JOIN THE AGENCY</h3><p>Enter the X Community. Choose your assassin. No token purchase is required to join the Agency.</p><span class="step-bottom">RECRUITMENT OPEN <span aria-hidden="true">↗</span></span></article>
           <article class="step reveal"><span class="step-num">02</span><div class="step-icon" aria-hidden="true">◎</div><h3>CALL IT OUT</h3><p>Use the Pump.fun callout feature when eligible, then nominate a ridiculous crypto disaster.</p><span class="step-bottom">GET THE WORD OUT <span aria-hidden="true">↗</span></span></article>
           <article class="step reveal"><span class="step-num">03</span><div class="step-icon" aria-hidden="true">▤</div><h3>MAKE THE LIST</h3><p>The Agency reviews nominations and opens official dossiers.</p><span class="step-bottom">DOSSIER OPENED <span aria-hidden="true">↗</span></span></article>
           <article class="step reveal"><span class="step-num">04</span><div class="step-icon" aria-hidden="true">✕</div><h3>WATCH THE SHOW</h3><p>Selected contracts are executed on screen. The record becomes legend.</p><span class="step-bottom">CONTRACT COMPLETE <span aria-hidden="true">↗</span></span></article>
@@ -452,6 +474,24 @@ document.getElementById('xDraftFallback').addEventListener('click',()=>{
  status.classList.add('burn-flash');
  document.getElementById('xDraftFallback').hidden=true;
 });
+
+const agencyCA=document.getElementById('agencyCA');
+const agencyCopy=document.getElementById('copyAgencyCA');
+if(agencyCA&&agencyCopy){
+ agencyCopy.addEventListener('click',async()=>{
+  const addr=agencyCA.textContent.trim();
+  let copied=false;
+  try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(addr);copied=true;}}catch(_err){}
+  if(!copied){
+   try{
+    const range=document.createRange();range.selectNodeContents(agencyCA);
+    const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);
+    copied=document.execCommand('copy');selection.removeAllRanges();
+   }catch(_err){}
+  }
+  document.getElementById('agencyCopyFeedback').textContent=copied?'CONTRACT ADDRESS COPIED':'SELECT THE ADDRESS ABOVE TO COPY';
+ });
+}
 
 </script>
 </body>
