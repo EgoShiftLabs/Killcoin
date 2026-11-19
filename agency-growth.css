@@ -1,0 +1,41 @@
+/* THE AGENCY 2.0 / Recruitment-first experience. Scoped to new surfaces. */
+.agency-entry{background:linear-gradient(165deg,#100f11 0%,#08090a 70%,#171013 100%);border-top:1px solid #392c30;border-bottom:1px solid #392c30;padding:82px 0 88px;position:relative;overflow:hidden}
+.agency-entry:before{content:"";position:absolute;inset:-30% -25%;background:radial-gradient(circle at 75% 25%,rgba(156,30,46,.15),transparent 50%);pointer-events:none}
+.agency-entry .container{position:relative;z-index:1}
+.agency-entry-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:32px;flex-wrap:wrap}
+.agency-entry h2{font-family:Impact,"Arial Narrow",sans-serif;text-transform:uppercase;font-weight:800;line-height:.94;letter-spacing:.025em;font-size:clamp(2.8rem,7vw,5.7rem);margin:9px 0 12px;color:#f5eeee}
+.agency-entry h2 em{font-style:normal;color:#d6a86a}
+.agency-entry .agency-subtext{max-width:48ch;font-size:1rem;line-height:1.7;color:#c2b8b9;margin:0}
+.agency-entry .entry-eyebrow{font-size:.75rem;color:#e6b977;letter-spacing:.22em;font-weight:800}
+.recruit-roster{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.recruit-card{position:relative;border:1px solid #463137;background:linear-gradient(155deg,#21171b,#0c0e10 55%);border-radius:4px;overflow:hidden;min-width:0;transition:transform .2s,border-color .2s,box-shadow .2s}
+.recruit-card:hover,.recruit-card:focus-within{transform:translateY(-3px);border-color:#a87d52}
+.recruit-card[data-active="true"]{border-color:#d6a86a;box-shadow:0 0 0 1px rgba(214,168,106,.4),0 12px 35px rgba(0,0,0,.5)}
+.recruit-photo{aspect-ratio:4/4.5;background:radial-gradient(circle at 50% 25%,#5a202b,#09090c 75%);position:relative;overflow:hidden}
+.recruit-photo img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block}
+.recruit-photo:after{content:"";position:absolute;inset:60% 0 0;background:linear-gradient(transparent,#0d0e11);pointer-events:none}
+.recruit-number{position:absolute;top:12px;left:14px;background:#08080acc;border:1px solid #886246;padding:7px 9px;color:#efd3aa;font-size:.71rem;letter-spacing:.1em}
+.recruit-body{padding:0 18px 20px;margin-top:-10px;position:relative;z-index:1}
+.recruit-role{text-transform:uppercase;color:#d6a86a;font-size:.66rem;letter-spacing:.22em;font-weight:800}
+.recruit-body h3{font-family:Impact,"Arial Narrow",sans-serif;color:#fff;font-size:2.35rem;line-height:1.05;margin:7px 0 9px}
+.recruit-body p{color:#bfb2b4;font-size:.87rem;line-height:1.5;min-height:2.8em;margin:0 0 15px}
+.recruit-pick{background:transparent;border:1px solid #b77a54;color:#f0dbbc;cursor:pointer;width:100%;min-height:44px;padding:12px 9px;font-weight:800;font-size:.76rem;line-height:1.2;font-family:inherit;letter-spacing:.1em;transition:.2s;text-transform:uppercase}
+.recruit-pick:hover,.recruit-pick:focus-visible,.recruit-card[data-active="true"] .recruit-pick{background:#bc433e;color:#fff;border-color:#bc433e}
+.recruit-kit{margin-top:23px;background:linear-gradient(115deg,#20191c,#101113);border:1px solid #5b3e40;padding:24px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px}
+.recruit-kit strong{display:block;color:#f6e5cc;font-size:1.08rem;letter-spacing:.04em}
+.recruit-kit p{margin:7px 0 0;font-size:.88rem;line-height:1.6;color:#c0b2b4}
+.recruit-tools{display:flex;gap:9px;flex-wrap:wrap}
+.recruit-tools button,.recruit-tools a{display:inline-flex;align-items:center;justify-content:center;text-align:center;min-height:43px;background:#ab353c;color:#fff;border:1px solid #bd5058;padding:10px 14px;font-size:.78rem;font-weight:800;letter-spacing:.04em;text-decoration:none;cursor:pointer}
+.recruit-tools button:nth-child(2){background:transparent;border-color:#9a735a}
+.recruit-tools button:disabled{opacity:.5;cursor:not-allowed}
+.agency-mission-line{margin:22px 0 0;text-align:center;letter-spacing:.14em;color:#d5b589;font-size:.77rem}
+.secure-desk{border:1px solid #70504b;background:linear-gradient(145deg,#201a1b,#0e0f11);padding:28px 25px;max-width:560px}
+.secure-desk h3{color:#f4e7de;font-size:1.55rem;line-height:1.1;margin:14px 0}
+.secure-desk p{color:#c8bdbd;line-height:1.65;font-size:.9rem}
+.secure-desk .secure-steps{display:grid;gap:8px;margin:17px 0 22px;color:#f4d1a9;font-size:.8rem;letter-spacing:.045em}
+.secure-desk .secure-status{margin-top:14px;font-size:.85rem;line-height:1.55;color:#d0b2aa}
+.secure-desk .button[hidden]{display:none}
+.secure-desk .secure-note{font-size:.77rem;color:#b5a3a3;margin-top:16px}
+@media(max-width:780px){.recruit-roster{grid-template-columns:repeat(2,minmax(0,1fr))}.recruit-kit{grid-template-columns:1fr}.agency-entry{padding:55px 0}}
+@media(max-width:520px){.recruit-roster{grid-template-columns:1fr}.recruit-photo{aspect-ratio:5/4}.recruit-body h3{font-size:2rem}.recruit-body p{min-height:0}.recruit-tools{flex-direction:column}.recruit-tools>*{width:100%}}
+@media(prefers-reduced-motion:reduce){.recruit-card{transition:none}.recruit-card:hover{transform:none}}
