@@ -60,7 +60,8 @@ function doPost(e) {
       sheet.getRange(rowNum, 2, 1, 6).setNumberFormat("@");
       sheet.getRange(rowNum, 1, 1, COLUMNS.length).setValues([row]);
       SpreadsheetApp.flush();
-      cache.put(cacheKey, caseId, 21600);
+      // Cache is best-effort: a failed cache write must not hide a real saved row.
+      try { cache.put(cacheKey, caseId, 21600); } catch (cacheError) { console.warn("Intake cache unavailable"); }
       return respond_(requestId, true, caseId, "");
     } finally { lock.releaseLock(); }
   } catch (error) {
