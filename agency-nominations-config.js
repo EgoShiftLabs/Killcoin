@@ -3,5 +3,5 @@
  * No Google credentials, tokens or private spreadsheet IDs belong in this public file.
  */
 window.KILLCOIN_INTAKE = Object.freeze({
-  endpoint: ""
+  endpoint: "https://script.google.com/macros/s/AKfycby8allfZEQfzkkhaQGAb8AemtTAul3YKP1xNsKRVCFl7wVZJA3zqzAtqny44MGh2whrGw/exec"
 });
