@@ -84,7 +84,7 @@ function respond_(requestId, ok, caseId, message) {
     message: String(message || "").slice(0, 240)
   }).replace(/</g, "\\u003c");
   var content = '<!doctype html><html><head><meta charset="utf-8"></head><body>' +
-    '<script>window.top.postMessage(' + payload + ',' + JSON.stringify(AGENCY_ORIGIN) + ');<\\/script>' +
+    '<script>window.top.postMessage(' + payload + ',' + JSON.stringify(AGENCY_ORIGIN) + ');</script>' +
     '</body></html>';
   // Required for the hidden result frame inside the official Kill Coin website.
   return HtmlService.createHtmlOutput(content).setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
