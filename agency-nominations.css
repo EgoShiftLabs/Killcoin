@@ -1,0 +1,40 @@
+/* THE AGENCY / direct website nomination desk */
+.agency-intake{border:1px solid #7c4548;background:linear-gradient(150deg,#21191d,#0c0e11 75%);padding:24px;max-width:570px;box-shadow:0 14px 45px rgba(0,0,0,.22)}
+.agency-intake .form-header{display:flex;justify-content:space-between;gap:9px;flex-wrap:wrap}
+.agency-intake h3{font-family:Impact,"Arial Narrow",sans-serif;color:#f6ece8;font-size:clamp(1.65rem,4vw,2.3rem);line-height:1.05;letter-spacing:.01em;margin:20px 0 8px}
+.agency-intake .intake-intro{font-size:.89rem;line-height:1.65;color:#cab7b8;margin:0 0 19px}
+.agency-intake .intake-field{margin-bottom:20px}
+.agency-intake .intake-field label{display:block;font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;font-weight:800;color:#e9c29a;margin-bottom:9px}
+.agency-intake .intake-field label span{color:#b4a1a2;text-transform:none;letter-spacing:0;font-weight:500}
+.agency-intake .intake-field input,.agency-intake .intake-field textarea{width:100%;box-sizing:border-box;padding:14px 15px;min-height:46px;border:1px solid #6b4a4c;background:#0b0e11;color:#fff;font:400 .98rem/1.55 system-ui,sans-serif;border-radius:3px}
+.agency-intake .intake-field textarea{min-height:148px;resize:vertical}
+.agency-intake .intake-field :is(input,textarea):focus{outline:2px solid #d4a15b;outline-offset:2px}
+.agency-intake .intake-field :is(input,textarea)::placeholder{color:#a49a9d;opacity:1}
+.agency-intake .intake-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;margin-top:16px}
+.agency-intake .intake-actions button{min-height:49px;padding:13px 17px;font-weight:800;letter-spacing:.055em;cursor:pointer;border-radius:2px}
+.agency-intake .intake-submit{background:#b73d47;border:1px solid #dc5761;color:#fff}
+.agency-intake .intake-submit:not(:disabled):hover{background:#d14b56}
+.agency-intake .intake-submit:disabled{opacity:.65;cursor:not-allowed}
+.agency-intake .intake-copy{background:transparent;border:1px solid #93736a;color:#f0d6b6}
+.agency-intake .intake-status{margin-top:15px;padding:11px 12px;border-left:3px solid #9b6950;background:#19191c;color:#dccac6;font-size:.84rem;line-height:1.55;min-height:44px}
+.agency-intake .intake-status[data-state="success"]{border-left-color:#9aca8b;color:#eff5e9}
+.agency-intake .intake-status[data-state="error"]{border-left-color:#df695f;color:#f4d6d1}
+.agency-intake .intake-connection{color:#d0a273;font-size:.75rem;letter-spacing:.13em;font-weight:800;margin:17px 0 6px}
+.agency-intake .intake-connection[data-online="true"]{color:#9bd69c}
+.agency-intake .intake-fineprint{font-size:.75rem;color:#a99b9e;line-height:1.55;margin-top:14px}
+.agency-intake .agency-saved{margin-top:18px;border:1px solid #846744;padding:17px;background:linear-gradient(135deg,#211d18,#121013)}
+.agency-intake .agency-saved strong{display:block;color:#f4d4a7;font-size:1.05rem;letter-spacing:.045em}
+.agency-intake .agency-saved p{margin:7px 0 12px;color:#c8b5b4;font-size:.85rem;line-height:1.5}
+.agency-intake .agency-saved button{background:transparent;border:1px solid #bd9272;color:#f4d4a7;cursor:pointer;padding:10px 13px;font-weight:800}
+.agency-intake [hidden]{display:none!important}
+.agency-intake .intake-honeypot{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+@media(max-width:510px){.agency-intake{padding:18px}.agency-intake .intake-actions{grid-template-columns:1fr}.agency-intake .intake-actions button{width:100%}}
+
+/* Theatrical Burn Protocol: success-only, with reduced motion support. */
+@keyframes agency-burn-confirmed{
+  0%{box-shadow:0 0 0 rgba(216,80,68,0);transform:none}
+  25%{box-shadow:0 0 24px rgba(214,66,56,.5);transform:translateY(-1px)}
+  100%{box-shadow:none;transform:none}
+}
+.agency-intake .intake-status.intake-burn{animation:agency-burn-confirmed 620ms ease-out 1}
+@media(prefers-reduced-motion:reduce){.agency-intake .intake-status.intake-burn{animation:none}}

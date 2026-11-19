@@ -107,6 +107,7 @@
   <meta name="twitter:title" content="KILL COIN — THE AGENCY IS RECRUITING">
   <meta name="twitter:description" content="The trenches have an agency now. Choose your operative. Follow the files.">
   <link rel="stylesheet" href="./agency-growth.css">
+  <link rel="stylesheet" href="./agency-nominations.css">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -363,16 +364,43 @@
 
     <section class="section section-nominate" id="nominate" aria-labelledby="nominateHeading">
       <div class="container nomination-layout">
-        <div class="nomination-copy reveal"><p class="section-eyebrow">05 / NOMINATION DESK</p><h2 id="nominateHeading">PUT IT<br>ON THE <em>LIST.</em></h2><p>Bring public crypto project names, contracts and evidence to our private review desk. Cases appear only after editorial approval.</p><div class="clearance-line"><span class="status-dot"></span> INTAKE STATUS BELOW</div><div class="nomination-watermark" aria-hidden="true">⌖</div></div>
-        <div class="nomination-form secure-desk reveal" id="nominationDesk">
-          <div class="form-header"><span>AGENCY DOCUMENT / PRIVATE INTAKE</span><span>FORM N-002</span></div>
-          <h3>EVERY FILE STARTS WITH RECEIPTS.</h3>
-          <p>Got a public crypto project or market narrative the Agency should review? File it through our secure intake. Submissions enter a private queue; only reviewed and approved case files can appear on the public HitList.</p>
-          <div class="secure-steps"><span>01 / IDENTIFY A PUBLIC PROJECT OR META</span><span>02 / PROVIDE A SOURCE PEOPLE CAN CHECK</span><span>03 / SUBMIT TO PRIVATE REVIEW</span></div>
-          <a id="secureNominationLink" class="button button-primary" href="#" data-form-url="https://docs.google.com/forms/d/e/1FAIpQLSdGQw8m-1dqOy5gNpAlVUpCKBHSEs4IF3BhOl7Bjvs1lXJK_g/viewform" target="_blank" rel="noopener noreferrer" hidden>OPEN SECURE NOMINATION FORM ↗</a>
-          <div id="nominationGateStatus" class="secure-status" role="status" aria-live="polite">Checking secure intake availability…</div>
-          <p class="secure-note">No submission is published automatically. Google Forms confirms successful submissions on its own confirmation screen. The theatrical Burn Protocol stays on hold until a verified on-site save callback exists.</p>
-        </div>
+        <div class="nomination-copy reveal"><p class="section-eyebrow">05 / NOMINATION DESK</p><h2 id="nominateHeading">PUT IT<br>ON THE <em>LIST.</em></h2><p>A public X profile. A quick rant. Receipts if you've got 'em. The Agency takes it from there.</p><div class="clearance-line"><span class="status-dot"></span> THE TRENCHES HAVE THE FLOOR</div><div class="nomination-watermark" aria-hidden="true">⌖</div></div>
+        <form class="nomination-form agency-intake reveal" id="agencyNominationForm" novalidate>
+          <div class="form-header"><span>THE AGENCY / HITLIST NOMINATION</span><span>CASE FILE N-003</span></div>
+          <h3>WHO'S BEEN MOVING DIRTY? ☠️</h3>
+          <p class="intake-intro">Somebody did the trenches wrong? Put the public X profile on the table and tell us what happened. No wallet. No email. No ten-page interrogation.</p>
+
+          <div class="intake-field">
+            <label for="agencyNomineeProfile">1. WHO WE TALKIN' ABOUT?</label>
+            <input id="agencyNomineeProfile" name="profile" type="text" maxlength="120" minlength="2" placeholder="@username or a public X profile / project" autocomplete="off" autocapitalize="none" spellcheck="false" required>
+          </div>
+          <div class="intake-field">
+            <label for="agencyNomineeRant">2. WHAT THE HELL DID THEY DO? 🤣</label>
+            <textarea id="agencyNomineeRant" name="rant" rows="5" minlength="8" maxlength="1600" placeholder="Let it out. What did they promise? What actually happened? Why is the trenches mad?" required></textarea>
+          </div>
+          <div class="intake-field">
+            <label for="agencyNomineeReceipt">3. GOT RECEIPTS? <span>(OPTIONAL)</span></label>
+            <input id="agencyNomineeReceipt" name="receipt" type="url" maxlength="500" placeholder="Link to the public X post, transaction or screenshot">
+          </div>
+          <input type="hidden" name="requestId" id="agencyRequestId" value="">
+          <div class="intake-honeypot" aria-hidden="true">
+            <label for="agencySpamField">Leave this field empty</label>
+            <input id="agencySpamField" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="intake-connection" id="agencyIntakeConnection" role="status">● CHECKING INTAKE…</div>
+          <div class="intake-actions">
+            <button type="submit" id="agencySubmitNomination" class="intake-submit" disabled>CONNECTING PRIVATE DESK…</button>
+            <button type="button" id="agencyCopyNomination" class="intake-copy">COPY DRAFT ⧉</button>
+          </div>
+          <p class="intake-status" id="agencyNominationMessage" role="status" aria-live="polite">The Agency only confirms a nomination when it has been saved privately.</p>
+          <div class="agency-saved" id="agencySavedCase" hidden>
+            <strong>FILE RECEIVED / <span id="agencySavedCaseId"></span></strong>
+            <p>The desk has your submission. Public dossiers are reviewed separately. Don't post anyone's personal information.</p>
+            <button type="button" id="agencyShareFiling">I FILED WITH THE AGENCY — SHARE ↗</button>
+          </div>
+          <p class="intake-fineprint">Public crypto accounts and projects only. Your rant stays in the private review queue; nothing is published automatically. Don't include private addresses, phone numbers or other personal data.</p>
+          <iframe id="agencySubmissionFrame" name="agencySubmissionFrame" title="Agency nomination response receiver" hidden tabindex="-1"></iframe>
+        </form>
       </div>
     </section>
 
@@ -461,6 +489,8 @@ if(agencyCA&&agencyCopy){
 }
 
 </script>
+<script src="./agency-nominations-config.js" defer></script>
 <script src="./agency-growth.js" defer></script>
+<script src="./agency-nominations.js" defer></script>
 </body>
 </html>
