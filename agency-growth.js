@@ -16,7 +16,7 @@ for(const card of cards){
  const galleryButton=$('.agent-download[data-agent="'+id+'"]');
  const portrait=galleryButton?.closest('.agent-card')?.querySelector('.agent-portrait img');
  const dest=card.querySelector('.recruit-photo img');
- if(portrait&&dest){dest.src=portrait.src;dest.alt=personnel[id].name+' — Agency operative portrait'}
+ if(portrait&&dest&&!dest.getAttribute('src')){dest.src=portrait.src;dest.alt=personnel[id].name+' — Agency operative portrait'}
  card.querySelector('.recruit-pick')?.addEventListener('click',()=>choose(id));
 }
 function choose(id){
