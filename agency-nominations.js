@@ -62,6 +62,9 @@
       savedId.textContent = caseId.slice(0, 60);
       savedCard.hidden = false;
       report("DOSSIER RECEIVED. The Agency has your story. Files are reviewed privately before anything goes public.", "success");
+      message.classList.remove("intake-burn");
+      void message.offsetWidth;
+      message.classList.add("intake-burn");
       form.reset();
       pendingId = "";
       document.getElementById("agencyRequestId").value = "";
