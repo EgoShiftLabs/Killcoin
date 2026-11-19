@@ -19,7 +19,7 @@
 .recruit-role{text-transform:uppercase;color:#d6a86a;font-size:.66rem;letter-spacing:.22em;font-weight:800}
 .recruit-body h3{font-family:Impact,"Arial Narrow",sans-serif;color:#fff;font-size:2.35rem;line-height:1.05;margin:7px 0 9px}
 .recruit-body p{color:#bfb2b4;font-size:.87rem;line-height:1.5;min-height:2.8em;margin:0 0 15px}
-.recruit-pick{background:transparent;border:1px solid #b77a54;color:#f0dbbc;cursor:pointer;width:100%;min-height:44px;padding:12px 9px;font:800 .76rem/1.2 inherit;letter-spacing:.1em;transition:.2s;text-transform:uppercase}
+.recruit-pick{background:transparent;border:1px solid #b77a54;color:#f0dbbc;cursor:pointer;width:100%;min-height:44px;padding:12px 9px;font-weight:800;font-size:.76rem;line-height:1.2;font-family:inherit;letter-spacing:.1em;transition:.2s;text-transform:uppercase}
 .recruit-pick:hover,.recruit-pick:focus-visible,.recruit-card[data-active="true"] .recruit-pick{background:#bc433e;color:#fff;border-color:#bc433e}
 .recruit-kit{margin-top:23px;background:linear-gradient(115deg,#20191c,#101113);border:1px solid #5b3e40;padding:24px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px}
 .recruit-kit strong{display:block;color:#f6e5cc;font-size:1.08rem;letter-spacing:.04em}
