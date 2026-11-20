@@ -14,7 +14,8 @@ test("homepage HTML is under 80 KB, with zero embedded WebP images", () => {
 
 test("all referenced same-origin media files exist with actual WebP headers", () => {
   const imageRefs = [...html.matchAll(/\.\/assets\/(?:media|operatives)\/[\w-]+\.webp/g)].map(m=>m[0]);
-  assert.equal(imageRefs.length, 23);
+  // 23 references were converted from inline data; 3 recruitment images were already external.
+  assert.equal(imageRefs.length, 26);
   const unique = [...new Set(imageRefs)];
   assert.equal(unique.length, 18);
   for (const ref of unique) {
