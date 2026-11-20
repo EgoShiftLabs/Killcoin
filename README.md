@@ -10,7 +10,6 @@ A community-driven crypto satire and original noir-fiction entertainment project
 - [Agency whitepaper](docs/AGENCY_WHITEPAPER_V1_1.md)
 - [Intake receiver and deployment guide](apps-script/README.md)
 - [Public registry workflow](docs/REGISTRY.md)
-- [Agency pilot episode](docs/CASE_FILE_001.md) (in separate creative draft PR)
 
 ## What's live
 
