@@ -1,0 +1,31 @@
+name: Agency intake and registry tests
+on:
+  pull_request:
+    paths:
+      - 'apps-script/**'
+      - 'agency-nominations.js'
+      - 'tests/**'
+      - '.github/workflows/agency-intake-tests.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'apps-script/**'
+      - 'agency-nominations.js'
+      - 'tests/**'
+permissions:
+  contents: read
+jobs:
+  node-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate JavaScript syntax
+        run: |
+          node --check agency-nominations.js
+          cp apps-script/Code.gs /tmp/agency-code.js
+          node --check /tmp/agency-code.js
+      - name: Run mock receiver and registry tests
+        run: node --test tests/intake.test.mjs tests/registry.test.mjs
