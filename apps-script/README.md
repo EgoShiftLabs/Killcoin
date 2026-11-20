@@ -1,31 +1,43 @@
-# The Agency — Direct Website Nomination Desk
+# The Agency — private Google Apps Script nomination receiver
 
-**No native Google Form needed.** Visitors fill out three fields directly on Kill Coin's GitHub Pages site.
+The public website `#nominate` form accepts a **project, token, or contract**, a factual explanation of the complaint, an optional public receipt URL, and a required attestation. It does not request a wallet or email.
 
-## What's built
-- `#nominate` on the website: public X profile/project (required), rant (required), optional evidence URL.
-- Submissions will POST to a private Google Apps Script web app in a hidden iframe.
-- The Apps Script creates a separate **Website Nominations** tab in the existing **PRIVATE** Agency intake spreadsheet and saves each submission as **PENDING REVIEW**.
-- The website only displays **FILE RECEIVED** after a success message containing the matching submission ID. On failure/timeout the visitor keeps their draft.
-- Nothing is published to the public case registry or to X automatically.
+The website posts to a bound Apps Script Web App using a hidden iframe. A successful response includes the case ID; raw entries stay in the private `Website Nominations` tab with `PENDING REVIEW`.
 
-## One-time connection (Google authorization required)
-1. Open the existing private workbook named **HITLIST Agency — PRIVATE Nomination Intake**.
-2. Choose **Extensions → Apps Script** in that workbook. This makes the script *bound* to the private sheet; no sheet ID goes into public code.
-3. Replace the default `Code.gs` with the entire contents of [Code.gs](./Code.gs) and save.
-4. Choose **Deploy → New deployment → Select type: Web app**.
-5. Select **Execute as: Me**. Set access to **Anyone** (anonymous visitors), then **Deploy** and approve Google's authorization prompts. This grants the script access to the private workbook, not public read access to the workbook.
-6. Copy the published URL ending in **/exec**.
-7. In this public GitHub repository, edit `agency-nominations-config.js` and paste that URL as `endpoint`. Commit the change.
-8. Open `https://egoshiftlabs.github.io/Killcoin/#nominate` and confirm the button says **FILE THE NOMINATION**.
-9. Submit a test with a fictional project and benign rant, verify the corresponding `Website Nominations` row, verify the website displays the case ID, then remove/mark the test row if desired. Also test an invalid URL and no-network/failure path.
+## Already operational
 
-## Privacy and behavior
-- The private workbook, raw submission rows and owner permissions stay private; use a SEPARATE public-reviewed sheet for any published dossiers.
-- Anyone can submit, but public cases require independent editorial review. Nominations are never proof of wrongdoing.
-- Google Apps Script has execution limits and isn't designed for unmoderated high-volume public APIs. If traffic grows, add anti-abuse measures or move to a dedicated backend.
-- Only use your own deployment URL. Do not publish authorization tokens, Apps Script editor links, or private spreadsheet IDs in the public GitHub files.
-- If a form appears to time out, the visitor may retry; the same request ID helps avoid duplicate rows within the cache window.
+The previous three-field version was verified end-to-end with a legitimate test record on November 19, 2026. The public endpoint is stored in `agency-nominations-config.js`.
 
-## Verifying the receiver
-If the browser reports a submission couldn't be confirmed despite a row appearing, check the Apps Script execution log and whether the HTML service can post a message from its iframe to `https://egoshiftlabs.github.io`. Don't claim an unconfirmed save. If iframe posting is blocked by a browser, use an approved same-origin API relay or dedicated service instead of pretending the request succeeded.
+**Important: GitHub code and Google's deployed script are separate.** Updating `apps-script/Code.gs` in the repository does not deploy the changed receiver.
+
+## Safe rollout for the proposed project-level receiver
+
+1. Review and approve the GitHub pull request for site, code and tests.
+2. Merge the site first. The old receiver will ignore the extra `attest` field; its existing three fields remain the same. The site can therefore operate before the receiver is redeployed.
+3. Open the existing **private** Agency Google Sheet, select **Extensions → Apps Script**, and open the *bound* project.
+4. Replace the contents of `Code.gs` with the **approved new version** from the repository, and save.
+5. Select **Deploy → Manage deployments → Edit (pencil) → Version: New version → Deploy**. Editing this deployment should preserve its `/exec` URL.
+6. Keep **Execute as: Me**, access **Anyone**, and approve any required authorization prompts. This does **not** make the Sheet publicly readable.
+7. Test a harmless fictional project from the live site with the checkbox checked. Verify the new row and case ID in the private Sheet.
+8. Try submitting without the checkbox and with a contact detail; confirm both are blocked.
+9. If anything fails, stop and inspect the Apps Script execution log. The previous GitHub version can be restored separately; Google deployment version must also be rolled back by its owner.
+
+Do not paste the private Sheet ID or Google's owner credentials into public repository files.
+
+## Guardrails and limitations
+
+- Server requires `attest=yes` and rejects obvious email addresses, US/international-format phones and street-address patterns. No regex can guarantee removal of all personal data; human review is still mandatory.
+- Persistent `PropertiesService` counters enforce UTC-day and fixed ten-minute windows: at most **30 total submissions per 10-minute window**, **300 per UTC day**, and **8 per project per ten-minute window**, checked under `LockService` before writing to Sheets.
+- Limits are global because Apps Script cannot reliably identify an anonymous visitor's IP. A determined spammer can exhaust shared quotas by rotating projects. **This is NOT comprehensive denial-of-service protection.** For meaningful public traffic, plan a gateway with human-verification / Turnstile and reliable per-client rate limits.
+- Counters are consumed before writing; a failed spreadsheet operation can count against the limit. A failed rate-counter persistence should reject the submission rather than silently disable protection.
+- Duplicate retries can reuse a recent response while the six-hour `CacheService` cache entry remains available; retry protection after cache eviction is not guaranteed.
+- The website reports a saved case only when it receives the matching server response. Failed or timed-out submissions retain the draft.
+- Approval of a private Sheet row does not automatically publish it.
+
+## Tests
+
+```bash
+node --test tests/intake.test.mjs tests/registry.test.mjs
+```
+
+The tests mock Google Apps Script and time; they cover data checks, idempotency during the cache window, fixed ten-minute and UTC-day limits, expiration and benign blockchain addresses. They do **not** test the real deployment or guarantee abuse prevention. See [docs/REGISTRY.md](../docs/REGISTRY.md) for public publishing procedures.
