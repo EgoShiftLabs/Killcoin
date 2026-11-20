@@ -364,23 +364,27 @@
 
     <section class="section section-nominate" id="nominate" aria-labelledby="nominateHeading">
       <div class="container nomination-layout">
-        <div class="nomination-copy reveal"><p class="section-eyebrow">05 / NOMINATION DESK</p><h2 id="nominateHeading">PUT IT<br>ON THE <em>LIST.</em></h2><p>A public X profile. A quick rant. Receipts if you've got 'em. The Agency takes it from there.</p><div class="clearance-line"><span class="status-dot"></span> THE TRENCHES HAVE THE FLOOR</div><div class="nomination-watermark" aria-hidden="true">⌖</div></div>
+        <div class="nomination-copy reveal"><p class="section-eyebrow">05 / NOMINATION DESK</p><h2 id="nominateHeading">PUT IT<br>ON THE <em>LIST.</em></h2><p>A public crypto project, token, or contract. Tell the trenches what happened; bring public receipts if you've got 'em. Every file gets reviewed.</p><div class="clearance-line"><span class="status-dot"></span> THE TRENCHES HAVE THE FLOOR</div><div class="nomination-watermark" aria-hidden="true">⌖</div></div>
         <form class="nomination-form agency-intake reveal" id="agencyNominationForm" novalidate>
           <div class="form-header"><span>THE AGENCY / HITLIST NOMINATION</span><span>CASE FILE N-003</span></div>
-          <h3>WHO'S BEEN MOVING DIRTY? ☠️</h3>
-          <p class="intake-intro">Somebody did the trenches wrong? Put the public X profile on the table and tell us what happened. No wallet. No email. No ten-page interrogation.</p>
+          <h3>WHICH PROJECT MOVED DIRTY? ☠️</h3>
+          <p class="intake-intro">Rugged by a project? Name the token or contract and tell us what went down. No wallet. No email. No ten-page interrogation. Real people aren't targets.</p>
 
           <div class="intake-field">
-            <label for="agencyNomineeProfile">1. WHO WE TALKIN' ABOUT?</label>
-            <input id="agencyNomineeProfile" name="profile" type="text" maxlength="120" minlength="2" placeholder="@username or a public X profile / project" autocomplete="off" autocapitalize="none" spellcheck="false" required>
+            <label for="agencyNomineeProfile">1. WHICH PROJECT, TOKEN OR CONTRACT?</label>
+            <input id="agencyNomineeProfile" name="profile" type="text" maxlength="120" minlength="2" placeholder="Project name, $TICKER, or contract address" autocomplete="off" autocapitalize="none" spellcheck="false" required>
           </div>
           <div class="intake-field">
-            <label for="agencyNomineeRant">2. WHAT THE HELL DID THEY DO? 🤣</label>
-            <textarea id="agencyNomineeRant" name="rant" rows="5" minlength="8" maxlength="1600" placeholder="Let it out. What did they promise? What actually happened? Why is the trenches mad?" required></textarea>
+            <label for="agencyNomineeRant">2. WHAT THE HELL HAPPENED? 🤣</label>
+            <textarea id="agencyNomineeRant" name="rant" rows="5" minlength="8" maxlength="1600" placeholder="What was promised? What actually happened? Stick to facts anyone can check." required></textarea>
           </div>
           <div class="intake-field">
             <label for="agencyNomineeReceipt">3. GOT RECEIPTS? <span>(OPTIONAL)</span></label>
-            <input id="agencyNomineeReceipt" name="receipt" type="url" maxlength="500" placeholder="Link to the public X post, transaction or screenshot">
+            <input id="agencyNomineeReceipt" name="receipt" type="url" maxlength="500" placeholder="Public post, transaction explorer or archived evidence URL">
+          </div>
+          <div class="intake-attest">
+            <input id="agencyNomineeAttest" name="attest" type="checkbox" value="yes" required>
+            <label for="agencyNomineeAttest">This file concerns a public crypto project, token or contract—not a private person. I have not included threats, private personal information or knowingly false claims.</label>
           </div>
           <input type="hidden" name="requestId" id="agencyRequestId" value="">
           <div class="intake-honeypot" aria-hidden="true">
@@ -398,14 +402,14 @@
             <p>The desk has your submission. Public dossiers are reviewed separately. Don't post anyone's personal information.</p>
             <button type="button" id="agencyShareFiling">I FILED WITH THE AGENCY — SHARE ↗</button>
           </div>
-          <p class="intake-fineprint">Public crypto accounts and projects only. Your rant stays in the private review queue; nothing is published automatically. Don't include private addresses, phone numbers or other personal data.</p>
+          <p class="intake-fineprint">Public projects, tokens and contracts only. A nomination is an allegation, not a finding. Submissions stay private pending evidence review; nothing is published automatically. Need a correction or removal? Message @hitlist187. No personal addresses, emails, phone numbers or threats.</p>
           <iframe id="agencySubmissionFrame" name="agencySubmissionFrame" title="Agency nomination response receiver" hidden tabindex="-1"></iframe>
         </form>
       </div>
     </section>
 
     <section class="closing">
-      <div class="container closing-inner reveal"><div class="closing-symbol" aria-hidden="true">⌖</div><p>THE TRENCHES HAVE A HITLIST.</p><h2>YOU NOMINATE.<br><em>WE TERMINATE.</em></h2><div class="closing-actions"><a class="button button-primary" href="https://x.com/i/communities/2033212502868136292" target="_blank" rel="noopener noreferrer">JOIN THE AGENCY COMMUNITY <span aria-hidden="true">↗</span></a><a class="button button-outline" href="#top">RETURN TO TOP <span aria-hidden="true">↑</span></a></div></div>
+      <div class="container closing-inner reveal"><div class="closing-symbol" aria-hidden="true">⌖</div><p>THE TRENCHES HAVE A HITLIST.</p><h2>YOU NOMINATE.<br><em>WE INVESTIGATE.</em></h2><div class="closing-actions"><a class="button button-primary" href="https://x.com/i/communities/2033212502868136292" target="_blank" rel="noopener noreferrer">JOIN THE AGENCY COMMUNITY <span aria-hidden="true">↗</span></a><a class="button button-outline" href="#top">RETURN TO TOP <span aria-hidden="true">↑</span></a></div></div>
     </section>
   </main>
 
@@ -469,7 +473,7 @@ dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
 dialog.addEventListener('close',()=>previousFocus?.focus());
 document.getElementById('dialogNominate').addEventListener('click',()=>dialog.close());
 
-// Legacy unsaved X-draft nomination flow disabled. Secure intake uses the existing private Google Form.
+// Native nomination desk submits to the private Google Apps Script receiver via agency-nominations.js.
 const agencyCA=document.getElementById('agencyCA');
 const agencyCopy=document.getElementById('copyAgencyCA');
 if(agencyCA&&agencyCopy){

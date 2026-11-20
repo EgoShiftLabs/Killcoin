@@ -12,6 +12,12 @@ const AGENCY_ORIGIN = "https://egoshiftlabs.github.io";
 const INTAKE_TAB = "Website Nominations";
 const COLUMNS = ["Received At (UTC)", "Case ID", "Public X Profile / Project", "What Happened", "Receipts URL", "Review Status", "Intake Source"];
 const MAX_PROFILE = 120, MAX_RANT = 1600, MAX_RECEIPT = 500;
+// Persistent script-property counters; CacheService alone expires too early for a day limit.
+// Limits are global because anonymous Google Apps Script web apps cannot reliably see visitor IPs.
+const MAX_PER_10_MIN = 30, MAX_PER_DAY = 300, MAX_PER_PROJECT_10_MIN = 8;
+const RATE_PROPERTY = "AGENCY_RATE_COUNTERS";
+const CONTACT_DATA = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}|(?<![\w$])(?:\+\d{1,3}[\s.-]?)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}(?!\w)|(?<![\w$])\+\d{10,14}(?!\w)/i;
+const STREET_ADDRESS = /\b\d{1,6}\s+(?:[a-z0-9.-]+\s+){0,4}(?:street|st|avenue|ave|road|rd|boulevard|blvd|lane|ln|drive|dr)\b/i;
 
 function doGet() {
   return HtmlService.createHtmlOutput("The Agency nomination receiver is standing by. Use the form at the Kill Coin website.");
@@ -29,9 +35,13 @@ function doPost(e) {
     var profile = String(p.profile || "").trim();
     var rant = String(p.rant || "").trim();
     var receipts = String(p.receipt || "").trim();
-    if (profile.length < 2 || profile.length > MAX_PROFILE) return respond_(requestId, false, "", "Add a public X profile or project name.");
+    if (profile.length < 2 || profile.length > MAX_PROFILE) return respond_(requestId, false, "", "Add the public crypto project, token or contract.");
     if (rant.length < 8 || rant.length > MAX_RANT) return respond_(requestId, false, "", "Describe what happened in a few words.");
     if (receipts && (!/^https?:\/\/[^\s]+$/i.test(receipts) || receipts.length > MAX_RECEIPT)) return respond_(requestId, false, "", "Receipts must be a valid public link.");
+    if (String(p.attest || "") !== "yes") return respond_(requestId, false, "", "Confirm the report concerns a public project and contains no threats or personal details.");
+    if (CONTACT_DATA.test(profile + "\n" + rant + "\n" + receipts) || STREET_ADDRESS.test(profile + "\n" + rant)) {
+      return respond_(requestId, false, "", "Remove private contact information or street addresses.");
+    }
     var sheetFile = SpreadsheetApp.getActiveSpreadsheet();
     // For a standalone script, store your ID privately under Script Properties.
     if (!sheetFile) {
@@ -46,6 +56,8 @@ function doPost(e) {
       var cacheKey = "agency.nomination." + requestId;
       var existing = cache.get(cacheKey);
       if (existing) return respond_(requestId, true, existing, "");
+      // Reject before writing the private spreadsheet. The lock serializes counters.
+      if (!consumeRate_(profile)) return respond_(requestId, false, "", "The Agency desk is receiving too many submissions. Try again later.");
       var sheet = sheetFile.getSheetByName(INTAKE_TAB);
       if (!sheet) {
         sheet = sheetFile.insertSheet(INTAKE_TAB);
@@ -68,6 +80,35 @@ function doPost(e) {
     console.error("Agency intake error: " + error);
     return respond_(requestId, false, "", "The Agency couldn't confirm a save. Please retry.");
   }
+}
+
+function consumeRate_(profile) {
+  // This is basic flood control, not bot authentication or per-IP limiting.
+  // One hostile submitter can still consume a shared global allowance.
+  var props = PropertiesService.getScriptProperties();
+  var now = new Date();
+  var day = Utilities.formatDate(now, "Etc/UTC", "yyyyMMdd");
+  var windowId = String(Math.floor(now.getTime() / 600000));
+  var state;
+  try { state = JSON.parse(props.getProperty(RATE_PROPERTY) || "{}"); }
+  catch (parseError) { throw Error("Cannot read Agency rate counters."); }
+  if (state.day !== day) {
+    state = {day: day, dayCount: 0, windowId: windowId, windowCount: 0, projects: {}};
+  } else if (state.windowId !== windowId) {
+    state.windowId = windowId;
+    state.windowCount = 0;
+    state.projects = {};
+  }
+  // The project limit reduces repeat floods against one target, but cannot stop
+  // an attacker rotating fake project names. Use a proper anti-bot gateway if needed.
+  var key = encodeURIComponent(String(profile).toLowerCase().trim()).slice(0, 180);
+  var targetCount = Number(state.projects[key] || 0);
+  if (state.dayCount >= MAX_PER_DAY || state.windowCount >= MAX_PER_10_MIN || targetCount >= MAX_PER_PROJECT_10_MIN) return false;
+  state.dayCount++;
+  state.windowCount++;
+  state.projects[key] = targetCount + 1;
+  props.setProperty(RATE_PROPERTY, JSON.stringify(state));
+  return true;
 }
 
 function safeCell_(value) {
