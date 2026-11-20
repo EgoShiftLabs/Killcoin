@@ -59,13 +59,4 @@ share?.addEventListener('click',()=>{
  const msg='I chose '+p.name+' / '+p.className+' in THE AGENCY. The trenches have an agency now. Choose your operative: https://egoshiftlabs.github.io/Killcoin/#recruit @hitlist187 #KillCoin #Hitlist';
  window.open('https://x.com/intent/tweet?text='+encodeURIComponent(msg),'_blank','noopener,noreferrer');
 });
-const form=$('#secureNominationLink'),gate=$('#nominationGateStatus');
-if(form&&gate){
- const url=(form.dataset.formUrl||'').trim();
- if(/^https:\/\/docs\.google\.com\/forms\/d\//.test(url)&&/viewform(?:[?#]|$)/.test(url)){
-  form.href=url;form.hidden=false;gate.textContent='SECURE INTAKE OPEN — Submit using the Google Form. Your response is stored in the private review queue after Google confirms it; publication requires editorial approval.';
- }else{
-  form.hidden=true;gate.textContent='SECURE INTAKE SETUP IN PROGRESS — We are not accepting site nominations until the private submission form is verified. No case has been filed from this page.';
- }
-}
 })();
