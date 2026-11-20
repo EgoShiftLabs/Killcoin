@@ -101,6 +101,7 @@
 .registry-feedback{display:block;min-height:0;margin:3px 0 0;font:700 9px/1.5 var(--sans);letter-spacing:.1em;color:#bcc5bc}
 @media(max-width:610px){.contract-registry{margin-top:21px;padding:13px 12px}.contract-registry-main{align-items:flex-start}.contract-registry-links{width:100%}.registry-control{flex:1;text-align:center}.contract-registry-head{font-size:8px}.registry-address{font-size:10px}}
 
+.roster-division{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid rgba(219,178,124,.5);padding:28px 0 8px;margin-top:30px}.roster-division strong{font-family:var(--serif);font-size:clamp(21px,3vw,34px);font-weight:400;letter-spacing:.015em;color:#dec19c}.roster-division span{font-size:9px;letter-spacing:.12em;color:#b4a69a;max-width:310px;text-align:right;line-height:1.7}@media(max-width:650px){.roster-division{display:block}.roster-division span{display:block;margin-top:9px;text-align:left}}
 </style>
   
   <meta name="twitter:card" content="summary_large_image">
@@ -177,7 +178,7 @@
         <div class="recruit-roster">
           <article class="recruit-card" data-recruit-agent="blackout" data-active="false">
             <div class="recruit-photo"><img src="./assets/operatives/blackout.webp" alt="BLACKOUT original Agency operative portrait" decoding="async"><span class="recruit-number">AGENT / 001</span></div>
-            <div class="recruit-body"><span class="recruit-role">THE VETERAN · FIELD OPERATIVE</span><h3>BLACKOUT</h3><p>Decades in the trenches. Never breaks protocol.</p><button class="recruit-pick" type="button" aria-pressed="false">CHOOSE BLACKOUT</button></div>
+            <div class="recruit-body"><span class="recruit-role">THE VETERAN · FIELD OPERATIVE</span><h3>BLACKOUT</h3><p>Leads from the front. Never breaks protocol.</p><button class="recruit-pick" type="button" aria-pressed="false">CHOOSE BLACKOUT</button></div>
           </article>
           <article class="recruit-card" data-recruit-agent="vesper" data-active="false">
             <div class="recruit-photo"><img src="./assets/operatives/vesper.webp" alt="VESPER original Agency operative portrait" decoding="async"><span class="recruit-number">AGENT / 002</span></div>
@@ -248,75 +249,76 @@
     <section class="section section-roster" id="agents" aria-labelledby="agentsHeading">
       <div class="container">
         <div class="roster-head reveal"><div><p class="section-eyebrow">03 / AGENCY PERSONNEL</p><h2 id="agentsHeading">CHOOSE YOUR<br><em>ASSASSIN.</em></h2></div>
-        <div class="roster-intro"><p>Every agent needs an identity. Pick your face. Enter the Agency.</p><span>12 IDENTITIES&nbsp; / &nbsp;OPEN ACCESS&nbsp; / &nbsp;X-READY</span></div></div>
+        <div class="roster-intro"><p>Every agent needs an identity. Pick your face. Enter the Agency.</p><span>3 VANGUARD OPERATIVES&nbsp; / &nbsp;9 OLD-GUARD LEGENDS&nbsp; / &nbsp;OPEN ACCESS</span></div></div>
         <div class="roster-grid"><article class="agent-card reveal">
-      <div class="agent-portrait"><img src="./assets/operatives/blackout.webp" width="512" height="512" alt="HITLIST agent BLACKOUT portrait" loading="lazy" decoding="async"><span class="agent-edition">AGENT / 001</span></div>
-      <div class="agent-info"><div><p class="agent-class">THE VETERAN</p><h3>BLACKOUT</h3></div><span class="agent-sigil" aria-hidden="true">⌖</span></div>
-      <p class="agent-description">Decades in the trenches. Never breaks protocol.</p>
+      <div class="agent-portrait"><img src="./assets/operatives/blackout.webp" width="512" height="512" alt="HITLIST agent BLACKOUT portrait" loading="lazy" decoding="async"><span class="agent-edition">VANGUARD / 001</span></div>
+      <div class="agent-info"><div><p class="agent-class">THE VANGUARD</p><h3>BLACKOUT</h3></div><span class="agent-sigil" aria-hidden="true">⌖</span></div>
+      <p class="agent-description">Leads from the front. Never breaks protocol.</p>
       <button type="button" class="agent-download" data-agent="blackout" aria-label="Download 400 by 400 pixel PNG of BLACKOUT">DOWNLOAD PFP <span aria-hidden="true">↘</span></button>
     </article>
 <article class="agent-card reveal">
-      <div class="agent-portrait"><img src="./assets/operatives/vesper.webp" width="512" height="512" alt="HITLIST agent VESPER portrait" loading="lazy" decoding="async"><span class="agent-edition">AGENT / 002</span></div>
+      <div class="agent-portrait"><img src="./assets/operatives/vesper.webp" width="512" height="512" alt="HITLIST agent VESPER portrait" loading="lazy" decoding="async"><span class="agent-edition">VANGUARD / 002</span></div>
       <div class="agent-info"><div><p class="agent-class">THE STRATEGIST</p><h3>VESPER</h3></div><span class="agent-sigil" aria-hidden="true">⌖</span></div>
       <p class="agent-description">Sees the collapse before the first candle.</p>
       <button type="button" class="agent-download" data-agent="vesper" aria-label="Download 400 by 400 pixel PNG of VESPER">DOWNLOAD PFP <span aria-hidden="true">↘</span></button>
     </article>
 <article class="agent-card reveal">
-      <div class="agent-portrait"><img src="./assets/operatives/sable.webp" width="512" height="512" alt="HITLIST agent SABLE portrait" loading="lazy" decoding="async"><span class="agent-edition">AGENT / 003</span></div>
+      <div class="agent-portrait"><img src="./assets/operatives/sable.webp" width="512" height="512" alt="HITLIST agent SABLE portrait" loading="lazy" decoding="async"><span class="agent-edition">VANGUARD / 003</span></div>
       <div class="agent-info"><div><p class="agent-class">THE INTELLIGENCE</p><h3>SABLE</h3></div><span class="agent-sigil" aria-hidden="true">⌖</span></div>
       <p class="agent-description">Every contract begins with information.</p>
       <button type="button" class="agent-download" data-agent="sable" aria-label="Download 400 by 400 pixel PNG of SABLE">DOWNLOAD PFP <span aria-hidden="true">↘</span></button>
     </article>
+<div class="roster-division reveal" role="separator" aria-label="Old Guard archive"><strong>THE OLD GUARD / FOUNDERS ARCHIVE</strong><span>THE GENERATION THAT BUILT THE SHADOWS. THEIR STORIES ARE STILL CLASSIFIED.</span></div>
 <article class="agent-card reveal">
-      <div class="agent-portrait"><img src="./assets/media/nightshade.webp" width="512" height="512" alt="HITLIST agent NIGHTSHADE portrait" loading="lazy" decoding="async"><span class="agent-edition">AGENT / 004</span></div>
+      <div class="agent-portrait"><img src="./assets/media/nightshade.webp" width="512" height="512" alt="HITLIST agent NIGHTSHADE portrait" loading="lazy" decoding="async"><span class="agent-edition">OLD GUARD / 004</span></div>
       <div class="agent-info"><div><p class="agent-class">THE SHADOW</p><h3>NIGHTSHADE</h3></div><span class="agent-sigil" aria-hidden="true">⌖</span></div>
       <p class="agent-description">Silent presence. Unmistakable results.</p>
       <button type="button" class="agent-download" data-agent="nightshade" aria-label="Download 400 by 400 pixel PNG of NIGHTSHADE">DOWNLOAD PFP <span aria-hidden="true">↘</span></button>
     </article>
 <article class="agent-card reveal">
-      <div class="agent-portrait"><img src="./assets/media/warden.webp" width="512" height="512" alt="HITLIST agent WARDEN portrait" loading="lazy" decoding="async"><span class="agent-edition">AGENT / 005</span></div>
+      <div class="agent-portrait"><img src="./assets/media/warden.webp" width="512" height="512" alt="HITLIST agent WARDEN portrait" loading="lazy" decoding="async"><span class="agent-edition">OLD GUARD / 005</span></div>
       <div class="agent-info"><div><p class="agent-class">THE AUDITOR</p><h3>WARDEN</h3></div><span class="agent-sigil" aria-hidden="true">⌖</span></div>
       <p class="agent-description">Nothing escapes the final review.</p>
       <button type="button" class="agent-download" data-agent="warden" aria-label="Download 400 by 400 pixel PNG of WARDEN">DOWNLOAD PFP <span aria-hidden="true">↘</span></button>
     </article>
 <article class="agent-card reveal">
-      <div class="agent-portrait"><img src="./assets/media/ghost.webp" width="512" height="512" alt="HITLIST agent GHOST portrait" loading="lazy" decoding="async"><span class="agent-edition">AGENT / 006</span></div>
+      <div class="agent-portrait"><img src="./assets/media/ghost.webp" width="512" height="512" alt="HITLIST agent GHOST portrait" loading="lazy" decoding="async"><span class="agent-edition">OLD GUARD / 006</span></div>
       <div class="agent-info"><div><p class="agent-class">THE PHANTOM</p><h3>GHOST</h3></div><span class="agent-sigil" aria-hidden="true">⌖</span></div>
       <p class="agent-description">You never saw the agent. Only the dossier.</p>
       <button type="button" class="agent-download" data-agent="ghost" aria-label="Download 400 by 400 pixel PNG of GHOST">DOWNLOAD PFP <span aria-hidden="true">↘</span></button>
     </article>
 <article class="agent-card reveal">
-      <div class="agent-portrait"><img src="./assets/media/vantage.webp" width="512" height="512" alt="HITLIST agent VANTAGE: Latino male agent in a noir portrait" loading="lazy" decoding="async"><span class="agent-edition">AGENT / 007</span></div>
+      <div class="agent-portrait"><img src="./assets/media/vantage.webp" width="512" height="512" alt="HITLIST agent VANTAGE: Latino male agent in a noir portrait" loading="lazy" decoding="async"><span class="agent-edition">OLD GUARD / 007</span></div>
       <div class="agent-info"><div><p class="agent-class">THE TRACKER</p><h3>VANTAGE</h3></div><span class="agent-sigil" aria-hidden="true">⌖</span></div>
       <p class="agent-description">Every signal leaves a trail.</p>
       <button type="button" class="agent-download" data-agent="vantage" aria-label="Download 400 by 400 pixel PNG of VANTAGE">DOWNLOAD PFP <span aria-hidden="true">↘</span></button>
     </article>
 <article class="agent-card reveal">
-      <div class="agent-portrait"><img src="./assets/media/vector.webp" width="512" height="512" alt="HITLIST agent VECTOR: East Asian female agent in a noir portrait" loading="lazy" decoding="async"><span class="agent-edition">AGENT / 008</span></div>
+      <div class="agent-portrait"><img src="./assets/media/vector.webp" width="512" height="512" alt="HITLIST agent VECTOR: East Asian female agent in a noir portrait" loading="lazy" decoding="async"><span class="agent-edition">OLD GUARD / 008</span></div>
       <div class="agent-info"><div><p class="agent-class">THE ANALYST</p><h3>VECTOR</h3></div><span class="agent-sigil" aria-hidden="true">⌖</span></div>
       <p class="agent-description">Finds the pattern behind every collapse.</p>
       <button type="button" class="agent-download" data-agent="vector" aria-label="Download 400 by 400 pixel PNG of VECTOR">DOWNLOAD PFP <span aria-hidden="true">↘</span></button>
     </article>
 <article class="agent-card reveal">
-      <div class="agent-portrait"><img src="./assets/media/cipher.webp" width="512" height="512" alt="HITLIST agent CIPHER: South Asian male agent in a noir portrait" loading="lazy" decoding="async"><span class="agent-edition">AGENT / 009</span></div>
+      <div class="agent-portrait"><img src="./assets/media/cipher.webp" width="512" height="512" alt="HITLIST agent CIPHER: South Asian male agent in a noir portrait" loading="lazy" decoding="async"><span class="agent-edition">OLD GUARD / 009</span></div>
       <div class="agent-info"><div><p class="agent-class">THE BROKER</p><h3>CIPHER</h3></div><span class="agent-sigil" aria-hidden="true">⌖</span></div>
       <p class="agent-description">Speaks quietly. Knows everything.</p>
       <button type="button" class="agent-download" data-agent="cipher" aria-label="Download 400 by 400 pixel PNG of CIPHER">DOWNLOAD PFP <span aria-hidden="true">↘</span></button>
     </article>
 <article class="agent-card reveal">
-      <div class="agent-portrait"><img src="./assets/media/veil.webp" width="512" height="512" alt="HITLIST agent VEIL: Middle Eastern female agent in a noir portrait" loading="lazy" decoding="async"><span class="agent-edition">AGENT / 010</span></div>
+      <div class="agent-portrait"><img src="./assets/media/veil.webp" width="512" height="512" alt="HITLIST agent VEIL: Middle Eastern female agent in a noir portrait" loading="lazy" decoding="async"><span class="agent-edition">OLD GUARD / 010</span></div>
       <div class="agent-info"><div><p class="agent-class">THE DIPLOMAT</p><h3>VEIL</h3></div><span class="agent-sigil" aria-hidden="true">⌖</span></div>
       <p class="agent-description">Opens doors nobody knew existed.</p>
       <button type="button" class="agent-download" data-agent="veil" aria-label="Download 400 by 400 pixel PNG of VEIL">DOWNLOAD PFP <span aria-hidden="true">↘</span></button>
     </article>
 <article class="agent-card reveal">
-      <div class="agent-portrait"><img src="./assets/media/meridian.webp" width="512" height="512" alt="HITLIST agent MERIDIAN: European female agent in a noir portrait" loading="lazy" decoding="async"><span class="agent-edition">AGENT / 011</span></div>
+      <div class="agent-portrait"><img src="./assets/media/meridian.webp" width="512" height="512" alt="HITLIST agent MERIDIAN: European female agent in a noir portrait" loading="lazy" decoding="async"><span class="agent-edition">OLD GUARD / 011</span></div>
       <div class="agent-info"><div><p class="agent-class">THE DIRECTOR</p><h3>MERIDIAN</h3></div><span class="agent-sigil" aria-hidden="true">⌖</span></div>
       <p class="agent-description">Keeps the Agency three moves ahead.</p>
       <button type="button" class="agent-download" data-agent="meridian" aria-label="Download 400 by 400 pixel PNG of MERIDIAN">DOWNLOAD PFP <span aria-hidden="true">↘</span></button>
     </article>
 <article class="agent-card reveal">
-      <div class="agent-portrait"><img src="./assets/media/tidal.webp" width="512" height="512" alt="HITLIST agent TIDAL: Pacific Islander male agent in a noir portrait" loading="lazy" decoding="async"><span class="agent-edition">AGENT / 012</span></div>
+      <div class="agent-portrait"><img src="./assets/media/tidal.webp" width="512" height="512" alt="HITLIST agent TIDAL: Pacific Islander male agent in a noir portrait" loading="lazy" decoding="async"><span class="agent-edition">OLD GUARD / 012</span></div>
       <div class="agent-info"><div><p class="agent-class">THE SPECIALIST</p><h3>TIDAL</h3></div><span class="agent-sigil" aria-hidden="true">⌖</span></div>
       <p class="agent-description">Never mistakes noise for a signal.</p>
       <button type="button" class="agent-download" data-agent="tidal" aria-label="Download 400 by 400 pixel PNG of TIDAL">DOWNLOAD PFP <span aria-hidden="true">↘</span></button>
