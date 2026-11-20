@@ -15,6 +15,9 @@
   const share = document.getElementById("agencyShareFiling");
   const endpoint = (window.KILLCOIN_INTAKE?.endpoint || "").trim();
   const validEndpoint = /^https:\/\/script\.google\.com\/macros\/s\/[a-zA-Z0-9_-]+\/exec(?:\?.*)?$/.test(endpoint);
+  // Basic client-side PII guard; the private receiver enforces the same rules.
+  const CONTACT_DATA = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}|(?<![\w$])(?:\+\d{1,3}[\s.-]?)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}(?!\w)|(?<![\w$])\+\d{10,14}(?!\w)/i;
+  const STREET_ADDRESS = /\b\d{1,6}\s+(?:[a-z0-9.-]+\s+){0,4}(?:street|st|avenue|ave|road|rd|boulevard|blvd|lane|ln|drive|dr)\b/i;
   let busy = false;
   let pendingId = "";
   let timeout = null;
@@ -80,7 +83,16 @@
     const rant = form.elements.namedItem("rant").value.trim();
     const receipt = form.elements.namedItem("receipt").value.trim();
     if (profile.length < 2 || rant.length < 8) {
-      report("Add the public X profile or project and tell us what happened (at least eight characters).", "error"); return;
+      report("Name the public project or contract and tell us what happened (at least eight characters).", "error"); return;
+    }
+    if (CONTACT_DATA.test(profile + "\n" + rant + "\n" + receipt) || STREET_ADDRESS.test(profile + "\n" + rant)) {
+      report("Remove contact details or private addresses. This desk accepts project information, not personal data.", "error"); return;
+    }
+    const attest = form.elements.namedItem("attest");
+    if (!attest || !attest.checked) {
+      report("Confirm this is a project-level report and contains no threats or private personal information.", "error");
+      if (attest) attest.focus();
+      return;
     }
     if (receipt) {
       try { const url = new URL(receipt); if (!["https:", "http:"].includes(url.protocol)) throw Error("protocol"); }
@@ -110,7 +122,7 @@
     const rant = form.elements.namedItem("rant").value.trim();
     const receipt = form.elements.namedItem("receipt").value.trim();
     if (!profile && !rant && !receipt) { report("Write the nomination first, then copy your draft.", "error"); return; }
-    const text = ["KILL COIN / THE AGENCY — NOMINATION", "X PROFILE / PROJECT: " + profile, "THE RANT: " + rant, "RECEIPTS: " + (receipt || "Not attached")].join("\n\n");
+    const text = ["KILL COIN / THE AGENCY — PROJECT NOMINATION", "PROJECT / TOKEN / CONTRACT: " + profile, "WHAT HAPPENED: " + rant, "PUBLIC RECEIPTS: " + (receipt || "Not attached")].join("\n\n");
     try {
       await navigator.clipboard.writeText(text);
       report("DRAFT COPIED. This only copies your text; it does not file a nomination.", "info");
